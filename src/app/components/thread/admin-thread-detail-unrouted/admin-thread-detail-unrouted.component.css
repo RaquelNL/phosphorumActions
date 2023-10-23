@@ -1,0 +1,24 @@
+table {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px auto; /* Añade un margen superior de 20px y centrará la tabla horizontalmente */
+  max-width: 1000px; /* Asegura que la tabla no exceda un ancho máximo de 1000px */
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #f2f2f2;
+  color: black;
+}

@@ -1,0 +1,50 @@
+<h2 *ngIf="status!=null">ERROR: {{status.message}}</h2>
+<div *ngIf="status==null">
+  <h2>Threads</h2>
+  <h3>Showing {{oPage.numberOfElements}} of total {{oPage.totalElements}} threads.</h3>
+
+  <div class="card">
+    <p-table [value]="oPage.content" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>ID</th>
+          <th (click)="doOrder('title')">Title</th>
+          <th>Id_User</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-t>
+        <tr>
+          <td>{{t.id}}</td>
+          <td><a [routerLink]="['/admin','thread','view',t.id]">{{t.title}}</a></td>
+          <td><a [routerLink]="['/admin','user','view',t.user.id]">{{t.user.id}}</a></td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button class="btn btn-primary" [routerLink]="['/admin','user','view',t.id]"><i class="fa-solid fa-eye"></i></button>
+              <button class="btn btn-primary"><i class="fa-solid fa-arrow-up"></i></button>
+              <button class="btn btn-warning" [routerLink]="['/admin','user','edit',t.id]"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-danger" (click)="confirmDelete(t.id)"><i class="fas fa-trash"></i></button>
+            </div>
+            <div class="confirmation-overlay" *ngIf="showConfirmation">
+              <div class="confirmation-container">
+                <div class="confirmation-message">
+                  <p>¿Estás seguro de que quieres eliminar esta reply?</p>
+                  <button class="btn btn-danger" (click)="deleteThread(IThread)">Sí</button>
+                  <button class="btn btn-secondary" (click)="cancelDelete()">No</button>
+                </div>
+              </div>
+            </div>
+
+          </td>
+          </tr>
+          </ng-template>
+    </p-table>
+
+
+    <div class="card flex justify-content-center">
+      <p-paginator (onPageChange)="onPageChang($event)" [first]="oPaginatorState.first!" [rows]="oPaginatorState.rows!"
+        [totalRecords]="oPage.totalElements" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    </div>
+
+  </div>
+</div>
